@@ -149,7 +149,7 @@ class MaskFormerALLOCocoMixDatasetMapper:
         self.size_divisibility = size_divisibility
         self.repeat_instance_masks = repeat_instance_masks
         self.labels_mapping = labels_mapping
-        self.coco_dataset = COCO(root=self.coco_root, proxy_size=coco_proxy_size)
+        self.coco_dataset = COCO(root=self.coco_root, proxy_size=coco_proxy_size, filter=True)
 
         logger = logging.getLogger(__name__)
         mode = "training" if is_train else "inference"
