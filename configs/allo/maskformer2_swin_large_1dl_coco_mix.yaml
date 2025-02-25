@@ -1,0 +1,43 @@
+_BASE_: ./maskformer2_R50_bs16_90k.yaml
+MODEL:
+  BACKBONE:
+    NAME: "D2SwinTransformer"
+  SWIN:
+    EMBED_DIM: 192
+    DEPTHS: [2, 2, 18, 2]
+    NUM_HEADS: [6, 12, 24, 48]
+    WINDOW_SIZE: 12
+    APE: False
+    DROP_PATH_RATE: 0.3
+    PATCH_NORM: True
+    PRETRAIN_IMG_SIZE: 384
+  # WEIGHTS: "ckpts/allo/model_allo_seg_test.pth"  #* change this
+  WEIGHTS: "results/m2former_allo_new/model_0000099.pth"
+  MASK_FORMER:
+    DEC_LAYERS: 2
+    OUTLIER_SUPERVISION: True
+    OUTLIER_LOSS_TARGET: "nls"
+    NUM_OBJECT_QUERIES: 100
+    SCORE_NORM: tanh
+    OUTLIER_LOSS_FUNC: squared_hinge
+  SEM_SEG_HEAD:
+    DEFORMABLE_TRANSFORMER_ENCODER_IN_FEATURES: ["res5"]
+    IGNORE_VALUE: 255
+    NUM_CLASSES: 8 #* Important
+  FREEZE_PIXEL_DECODER: True 
+  FREEZE_BACKBONE: True
+  FREEZE_TRANSFORMER_DECODER_EXCEPT_MLP: True
+INPUT:
+  DATASET_MAPPER_NAME: "mask_former_allo_coco_mix"
+DATALOADER:
+  FILTER_EMPTY_ANNOTATIONS: True
+  NUM_WORKERS: 4  #* Important
+SOLVER:
+  CHECKPOINT_PERIOD: 1000
+  IMS_PER_BATCH: 16 #* Important
+  BASE_LR: 0.0001
+  MAX_ITER: 5000
+TEST:
+  EVAL_PERIOD: 100000
+OUTPUT_DIR: './results/Rba_allo'
+VERSION: 2

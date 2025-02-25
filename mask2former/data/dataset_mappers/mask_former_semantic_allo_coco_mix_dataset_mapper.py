@@ -245,17 +245,11 @@ class MaskFormerALLOCocoMixDatasetMapper:
 
         # Paste OOD object with probability equal to self.ood_prob
         ood_p = np.random.rand()
-        breakpoint()
-        if self.labels_mapping is not None:
-            # just check that the image is not from cityscapes
-            if not (sem_seg_gt.shape[0] == 1024 and sem_seg_gt.shape[1] == 2048):
-                sem_seg_gt = self.labels_mapping[(sem_seg_gt).astype("long")].astype("double")
         if ood_p < self.ood_prob:
             ood_idx = np.random.randint(0, len(self.coco_dataset))
             ood_object, ood_mask = self.coco_dataset[ood_idx]
             image, sem_seg_gt = mix_object(image, sem_seg_gt, np.array(ood_object), np.array(ood_mask), self.ood_label)   
 
-       
         aug_input = T.AugInput(image, sem_seg=sem_seg_gt)
         aug_input, transforms = T.apply_transform_gens(
             self.tfm_gens, aug_input)
