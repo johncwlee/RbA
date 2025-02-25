@@ -38,6 +38,13 @@ from .data.dataset_mappers.mask_former_semantic_street_hazards_coco_mix_mapper i
     MaskFormerSemanticStreetHazardsCOCOMixMapper
 )
 
+from .data.dataset_mappers.mask_former_semantic_allo_mapper import (
+    MaskFormerALLOSemanticDatasetMapper
+)
+from .data.dataset_mappers.mask_former_semantic_allo_coco_mix_dataset_mapper import (
+    MaskFormerALLOCocoMixDatasetMapper
+)
+
 # models
 from .maskformer_model import MaskFormer
 from .test_time_augmentation import SemanticSegmentorWithTTA

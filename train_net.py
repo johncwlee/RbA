@@ -12,6 +12,9 @@ try:
 except:
     pass
 
+import warnings
+warnings.simplefilter("ignore", category=FutureWarning)
+
 import copy
 import itertools
 import logging
@@ -64,6 +67,8 @@ from mask2former import (
     OpenPanopticCOCODatasetMapper,
     MaskFormerSemanticStreetHazardsCOCOMixMapper,
     add_maskformer2_config,
+    MaskFormerALLOSemanticDatasetMapper,
+    MaskFormerALLOCocoMixDatasetMapper
 )
 
 
@@ -178,6 +183,14 @@ class Trainer(DefaultTrainer):
             return build_detection_train_loader(cfg, mapper=mapper)
         elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_semantic_coco_mix":
             mapper = MaskFormerSemanticCocoMixDatasetMapper(cfg, True)
+            return build_detection_train_loader(cfg, mapper=mapper)
+        #* ALLO
+        elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_allo":
+            mapper = MaskFormerALLOSemanticDatasetMapper(cfg, True)
+            return build_detection_train_loader(cfg, mapper=mapper)
+        #* ALLO anomaly training
+        elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_allo_coco_mix":
+            mapper = MaskFormerALLOCocoMixDatasetMapper(cfg, True)
             return build_detection_train_loader(cfg, mapper=mapper)
         elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_semantic_street_hazards":
             mapper = MaskFormerSemanticStreetHazardsMapper(cfg, True)
