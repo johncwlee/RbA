@@ -20,7 +20,7 @@ from detectron2.evaluation.panoptic_evaluation import logger
 from detectron2.data import MetadataCatalog
 
 import PIL.Image as Image
-from panopticapi.utils import get_traceback, rgb2id
+# from panopticapi.utils import get_traceback, rgb2id
 import matplotlib.pyplot as plt
 
 OFFSET = 256 * 256 * 256
@@ -109,7 +109,7 @@ class PQStat():
         return {'pq': pq / n, 'sq': sq / n, 'rq': rq / n, 'n': n}, per_class_results
 
 
-@get_traceback
+# @get_traceback
 def pq_compute_single_core(proc_id, annotation_set, gt_folder, pred_folder, categories):
     pq_stat = PQStat()
 

@@ -1,7 +1,7 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 from .backbone.swin import D2SwinTransformer
-from .backbone.vit import D2ViT
-from .backbone.mvit import D2MViT
+# from .backbone.vit import D2ViT
+# from .backbone.mvit import D2MViT
 from .backbone.mix_transformer import (
     mit_b0,
     mit_b1,

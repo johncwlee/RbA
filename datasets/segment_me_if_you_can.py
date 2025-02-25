@@ -2,7 +2,8 @@ import os
 import cv2
 import torch
 import numpy as np
-import webp
+from PIL import Image
+# import webp
 
 from torch.utils.data import Dataset
 
@@ -163,15 +164,11 @@ class RoadObstacle21(Dataset):
     
     @staticmethod
     def read_image(path):
-
-        img = cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2RGB)
-
-        return img
+        image = Image.open(path).convert("RGB")
+        return np.array(image)
 
     @staticmethod
-    def read_webp(path):
+    def read_label(path):
 
-        img = webp.load_image(path, 'RGB')
-        img = np.array(img)
-
-        return img
+        img = Image.open(path).convert("L")
+        return np.array(img)

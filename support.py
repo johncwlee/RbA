@@ -21,20 +21,21 @@ from tqdm import tqdm
 
 from typing import Callable
 from sklearn.metrics import roc_curve, auc, average_precision_score
-from ood_metrics import fpr_at_95_tpr
+# from ood_metrics import fpr_at_95_tpr
+
 
 
 def get_datasets(datasets_folder):
 
     # Configs for Datasets
-    bdd100k_config = edict(
-        seg_downsample_rate=1,
-        train_file='train_paths.txt',
-        val_file='val_paths.txt',
-        val_image_strategy='no_change',
-        ignore_train_class=True,
-        dataset_root=os.path.join(datasets_folder, 'bdd100k/seg')
-    )
+    # bdd100k_config = edict(
+    #     seg_downsample_rate=1,
+    #     train_file='train_paths.txt',
+    #     val_file='val_paths.txt',
+    #     val_image_strategy='no_change',
+    #     ignore_train_class=True,
+    #     dataset_root=os.path.join(datasets_folder, 'bdd100k/seg')
+    # )
 
     cityscapes_config = edict(
         dataset_root=os.path.join(datasets_folder, 'cityscapes'),
@@ -42,33 +43,33 @@ def get_datasets(datasets_folder):
 
     road_anomaly_config = edict(
         dataset_root=os.path.join(datasets_folder,
-                                'RoadAnomaly/RoadAnomaly_jpg'),
+                                'RoadAnomaly'),
         test_image_strategy='no_change'
     )
 
-    fishyscapes_laf_config = edict(
-        dataset_root=os.path.join(datasets_folder, 'Fishyscapes'),
-    )
+    # fishyscapes_laf_config = edict(
+    #     dataset_root=os.path.join(datasets_folder, 'Fishyscapes'),
+    # )
 
-    fishyscapes_static_config = edict(
-        dataset_root=os.path.join(datasets_folder, 'Fishyscapes'),
-    )
+    # fishyscapes_static_config = edict(
+    #     dataset_root=os.path.join(datasets_folder, 'Fishyscapes'),
+    # )
 
     road_anomaly_21_config = edict(
         dataset_root=os.path.join(datasets_folder,
-                                'SegmentMeIfYouCan/dataset_AnomalyTrack'),
+                                'smiyc/dataset_AnomalyTrack'),
         dataset_mode='val'
     )
 
-    road_obstacle_21_config = edict(
-        dataset_root=os.path.join(datasets_folder,
-                                'SegmentMeIfYouCan/dataset_ObstacleTrack'),
-        dataset_mode='val'
-    )
+    # road_obstacle_21_config = edict(
+    #     dataset_root=os.path.join(datasets_folder,
+    #                             'SegmentMeIfYouCan/dataset_ObstacleTrack'),
+    #     dataset_mode='val'
+    # )
 
-    laf_config = edict(
-        dataset_root=os.path.join(datasets_folder, 'LostAndFound'),
-    )
+    # laf_config = edict(
+    #     dataset_root=os.path.join(datasets_folder, 'LostAndFound'),
+    # )
 
     transform = A.Compose([
         ToTensorV2()
@@ -82,14 +83,14 @@ def get_datasets(datasets_folder):
 
     DATASETS = edict(
         cityscapes=Cityscapes(cityscapes_config, transform=transform, split='val', target_type='semantic'),
-        bdd100k=BDD100KSeg(hparams=bdd100k_config, mode='val', transforms=transform, image_size=(720, 1280)),
+        # bdd100k=BDD100KSeg(hparams=bdd100k_config, mode='val', transforms=transform, image_size=(720, 1280)),
         road_anomaly=RoadAnomaly(hparams=road_anomaly_config, transforms=transform),
-        fishyscapes_laf=FishyscapesLAF(hparams=fishyscapes_laf_config, transforms=transform),
-        fs_static=FishyscapesStatic(hparams=fishyscapes_static_config, transforms=transform, version=1),
-        fs_static_v2=FishyscapesStatic(hparams=fishyscapes_static_config, transforms=transform, version=2),
+        # fishyscapes_laf=FishyscapesLAF(hparams=fishyscapes_laf_config, transforms=transform),
+        # fs_static=FishyscapesStatic(hparams=fishyscapes_static_config, transforms=transform, version=1),
+        # fs_static_v2=FishyscapesStatic(hparams=fishyscapes_static_config, transforms=transform, version=2),
         road_anomaly_21=RoadAnomaly21(hparams=road_anomaly_21_config, transforms=transform_ra_21),
-        road_obstacles=RoadObstacle21(road_obstacle_21_config, transforms=transform),
-        lost_and_found=LostAndFound(laf_config, transform) 
+        # road_obstacles=RoadObstacle21(road_obstacle_21_config, transforms=transform),
+        # lost_and_found=LostAndFound(laf_config, transform) 
     )
 
     return DATASETS

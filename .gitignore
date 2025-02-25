@@ -9,9 +9,10 @@ road_anomaly_benchmark
 smiyc_outputs
 plots
 animation
-# pretrained
+pretrained
 warehouse
 anomaly_scores
+results
 
 *.png
 *.json
