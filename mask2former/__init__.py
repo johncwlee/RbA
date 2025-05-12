@@ -44,6 +44,9 @@ from .data.dataset_mappers.mask_former_semantic_allo_mapper import (
 from .data.dataset_mappers.mask_former_semantic_allo_coco_mix_dataset_mapper import (
     MaskFormerALLOCocoMixDatasetMapper
 )
+from .data.dataset_mappers.mask_former_semantic_coco_mix_dataset_mapper_binary import (
+    MaskFormerSemanticCocoMixDatasetMapperBinary
+)
 
 # models
 from .maskformer_model import MaskFormer

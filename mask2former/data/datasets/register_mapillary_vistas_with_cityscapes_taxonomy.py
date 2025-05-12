@@ -603,11 +603,11 @@ def _get_mapillary_cityscapes_vistas_meta():
 
 
 def register_all_mapillary_vistas(root):
-    root = os.path.join(root, "mapillary_vistas")
+    root = os.path.join(root, "vistas")
     meta = _get_mapillary_cityscapes_vistas_meta()
     for name, dirname in [("train", "training"), ("val", "validation")]:
         image_dir = os.path.join(root, dirname, "images")
-        gt_dir = os.path.join(root, dirname, "labels")
+        gt_dir = os.path.join(root, dirname, "v1.2", "labels")
         name = f"mapillary_cityscapes_sem_seg_{name}"
         DatasetCatalog.register(
             name, lambda x=image_dir, y=gt_dir: load_sem_seg(y, x, gt_ext="png", image_ext="jpg")

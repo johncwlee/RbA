@@ -25,6 +25,8 @@ def add_maskformer2_config(cfg):
     # optimizer
     cfg.SOLVER.OPTIMIZER = "ADAMW"
     cfg.SOLVER.BACKBONE_MULTIPLIER = 0.1
+    
+    cfg.MODEL.FREEZE_BACKBONE = False
 
     # mask_former model config
     cfg.MODEL.MASK_FORMER = CN()
@@ -156,6 +158,12 @@ def add_maskformer2_config(cfg):
     cfg.MODEL.MVIT.PRETRAIN_IMG_SIZE = 224
     cfg.MODEL.MVIT.PRETRAIN_USE_CLS_TOKEN = True
     cfg.MODEL.MVIT.OUT_FEATURES = ["scale2", "scale3", "scale4", "scale5"]
+
+    cfg.MODEL.DINO_V2 = CN()
+    cfg.MODEL.DINO_V2.PRETRAIN_IMG_SIZE = 224
+    cfg.MODEL.DINO_V2.PATCH_SIZE = 16
+    cfg.MODEL.DINO_V2.EMBED_DIM = 1024
+    cfg.MODEL.DINO_V2.OUT_FEATURES = ["res2", "res3", "res4", "res5"]
 
     # NOTE: maskformer2 extra configs
     # transformer module

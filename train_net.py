@@ -68,7 +68,8 @@ from mask2former import (
     MaskFormerSemanticStreetHazardsCOCOMixMapper,
     add_maskformer2_config,
     MaskFormerALLOSemanticDatasetMapper,
-    MaskFormerALLOCocoMixDatasetMapper
+    MaskFormerALLOCocoMixDatasetMapper,
+    MaskFormerSemanticCocoMixDatasetMapperBinary
 )
 
 
@@ -183,6 +184,9 @@ class Trainer(DefaultTrainer):
             return build_detection_train_loader(cfg, mapper=mapper)
         elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_semantic_coco_mix":
             mapper = MaskFormerSemanticCocoMixDatasetMapper(cfg, True)
+            return build_detection_train_loader(cfg, mapper=mapper)
+        elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_semantic_coco_mix_binary":
+            mapper = MaskFormerSemanticCocoMixDatasetMapperBinary(cfg, True)
             return build_detection_train_loader(cfg, mapper=mapper)
         #* ALLO
         elif cfg.INPUT.DATASET_MAPPER_NAME == "mask_former_allo":

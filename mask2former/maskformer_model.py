@@ -49,6 +49,7 @@ class MaskFormer(nn.Module):
         force_region_partition: bool,
         outlier_supervision: bool,
         open_panoptic: bool,
+        freeze_backbone: bool = False,
     ):
         """
         Args:
@@ -103,6 +104,11 @@ class MaskFormer(nn.Module):
 
         if not self.semantic_on:
             assert self.sem_seg_postprocess_before_inference
+
+        if freeze_backbone:
+            for param in backbone.parameters():
+                param.requires_grad = False
+            backbone.eval()
 
     @classmethod
     def from_config(cls, cfg):
@@ -218,6 +224,7 @@ class MaskFormer(nn.Module):
             "force_region_partition": cfg.SOLVER.FORCE_REGION_PARTITION,
             "outlier_supervision": cfg.MODEL.MASK_FORMER.OUTLIER_SUPERVISION,
             "open_panoptic": cfg.MODEL.MASK_FORMER.OPEN_PANOPTIC,
+            "freeze_backbone": cfg.MODEL.FREEZE_BACKBONE,
         }
 
     @property

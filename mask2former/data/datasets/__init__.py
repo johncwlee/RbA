@@ -6,6 +6,6 @@ from . import (
     # register_mapillary_vistas_panoptic,
     # register_street_hazards,
     # register_coco_open_panoptic,
-    # register_mapillary_vistas_with_cityscapes_taxonomy,
+    register_mapillary_vistas_with_cityscapes_taxonomy,
     register_allo
 )
